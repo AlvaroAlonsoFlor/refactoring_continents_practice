@@ -1,5 +1,5 @@
 const createAndAppend = require('../helpers/create_apend.js');
-//You can get rid of this because you don't use pub, sub
+//You can get rid of pub_sub
 
 const ContinentView = function (container, continent) {
   this.continentsContainer = container;
@@ -7,46 +7,21 @@ const ContinentView = function (container, continent) {
 };
 
 ContinentView.prototype.render = function () {
-  // const continentContainer = document.createElement('div');
-  // continentContainer.classList.add('continent');
-  // Refactored
-
+  //create continent container
   const continentContainer = createAndAppend('div', 'continent', '', this.continentsContainer);
 
-  const name = this.createContinentHeading();
-  continentContainer.appendChild(name);
-  // const name = createAndAppend('h2', )
+  //create name
+  let text = this.continent.name
+  if (!text) { text = "Misc"}
+  const name = createAndAppend('h2', 'continent-name', text, continentContainer);
 
-  const countriesList = this.createCountriesList();
-  continentContainer.appendChild(countriesList);
+  //create list
+  const countriesList = createAndAppend('ul', 'countries', '', continentContainer);
 
-  this.continentsContainer.appendChild(continentContainer);
-};
-
-ContinentView.prototype.createContinentHeading = function () {
-  const name = document.createElement('h2');
-  name.classList.add('continent-name');
-  if (!this.continent.name) {
-    name.textContent = "Misc";
-  } else {
-    name.textContent = this.continent.name;
-  }
-  return name;
-};
-
-ContinentView.prototype.createCountriesList = function () {
-  const countriesList = document.createElement('ul');
-  countriesList.classList.add('countries');
-  this.populateList(countriesList);
-  return countriesList;
-};
-
-ContinentView.prototype.populateList = function (list) {
-  this.continent.countries.forEach((country) => {
-    const countryListItem = document.createElement('li');
-    countryListItem.textContent = country.name;
-    list.appendChild(countryListItem);
-  });
+  // create items
+  const countryListItem = this.continent.countries.forEach((country) => {
+    createAndAppend('li', null, country.name, countriesList)
+  })
 };
 
 module.exports = ContinentView;
