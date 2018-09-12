@@ -9,13 +9,13 @@ const ContinentView = function (container, continent) {
 ContinentView.prototype.render = function () {
   // const continentContainer = document.createElement('div');
   // continentContainer.classList.add('continent');
+  // Refactored
 
-  console.log(this.continentsContainer);
-
-  const continentContainer = createAndAppend('div', '', this.continentsContainer);
+  const continentContainer = createAndAppend('div', 'continent', '', this.continentsContainer);
 
   const name = this.createContinentHeading();
   continentContainer.appendChild(name);
+  // const name = createAndAppend('h2', )
 
   const countriesList = this.createCountriesList();
   continentContainer.appendChild(countriesList);
